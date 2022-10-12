@@ -1,11 +1,33 @@
-# Vue 3 + Typescript + Vite
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# install dependencies
+npm install
 
-## Recommended IDE Setup
+# serve with hot reload at localhost:8080
+gulp browser-sync
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+# build for production with minification
+gulp buildAll
 
-## Type Support For `.vue` Imports in TS
+# 生成html、js、css
+npm run new:html
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+# 规范的Git提交说明
+npm run commit
+
+# 生成html、js、css
+npm run new:html
+
+## 注：node版本要不低于12，请使用npm安装依赖，使用cnpm的包可能会导致git-cz的配置读取不到
+
+## 目录结构
+
+```shell
+├── src/js
+│   └── common // 插件 or 第三方库
+├── src/css
+│   └── common // 公共css or 第三方库样式
+├── src/images  // 图片
+├── src/js  // 脚本
+├── src/es5  // es5语法脚本  gulp自动生成
+└── src/scss  // scss  gulp自动编译成css
+```
