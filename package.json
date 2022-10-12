@@ -1,59 +1,32 @@
 {
-  "name": "vue3_h5",
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "commit": "git-cz"
-  },
-  "dependencies": {
-    "@foxit/sso_cookie": "^1.0.7",
-    "amfe-flexible": "^2.2.1",
-    "axios": "^0.26.1",
-    "lib-flexible": "^0.3.2",
-    "pinia": "^2.0.11",
-    "vant": "^3.4.5",
-    "vue": "^3.2.25",
-    "vue-meta": "^3.0.0-alpha.10",
-    "vue-router": "^4.0.13"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^2.2.0",
-    "babel-eslint": "^10.0.3",
-    "cz-conventional-changelog": "^3.3.0",
-    "cz-customizable": "^6.3.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "prettier":"^2.6.1",
-    "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^7.0.1",
-    "postcss-pxtorem": "^6.0.0",
-    "sass": "^1.49.9",
-    "sass-loader": "^12.6.0",
-    "terser": "^5.15.0",
-    "typescript": "^4.5.4",
-    "unplugin-auto-import": "^0.6.1",
-    "unplugin-vue-components": "^0.17.21",
-    "vite": "^3.1.0",
-    "vite-plugin-cdn-import": "^0.3.5",
-    "vite-plugin-style-import": "^1.4.1",
-    "vue-tsc": "^0.29.8"
-  },
-  "engines": {
-    "node": ">= 14.18.0",
-    "npm": ">= 6.14.15"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
+  "name": "scaffolding_liu_cli",
+  "version": "1.0.5",
+  "description": "自定义脚手架",
+  "keywords": [
+    "脚手架",
+    "cli"
   ],
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    }
+  "author": "Mr_liu",
+  "main": "./bin/cli.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "bin": {
+    "liu-cli": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "private": false,
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "chalk": "^2.4.2",
+    "commander": "^9.4.1",
+    "consolidate": "^0.16.0",
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^8.2.0",
+    "metalsmith": "^2.5.1",
+    "ora": "^5.4.1"
   }
 }

@@ -1,11 +1,14 @@
-# Vue 3 + Typescript + Vite
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 第三方库
 
-## Recommended IDE Setup
+# commander.js，可以自动的解析命令和参数，用于处理用户输入的命令
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+# download-git-repo，下载并提取 git 仓库，用于下载项目模板
 
-## Type Support For `.vue` Imports in TS
+# inquirer.js，通用的命令行用户界面集合，用于和用户进行交互
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+# ora，下载过程久的话，可以用于显示下载中的动画效果
+
+# chalk，可以给终端的字体加上颜色
+
+# log-symbols，可以在终端上显示出 √ 或 × 等的图标
