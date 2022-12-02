@@ -1,4 +1,8 @@
 /build/
 /config/
 /dist/
+/node_modules/
 /*.js
+# /**/*.ts
+/**/*.d.ts
+vite.config.ts

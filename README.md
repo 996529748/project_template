@@ -1,11 +1,73 @@
-# Vue 3 + Typescript + Vite
+# 简介
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Vue 3 + Typescript + Vite 移动端开发模板，已配置了4K等大屏兼容及px转rem
 
-## Recommended IDE Setup
+## 提交规范
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+全局安装 git-cz
 
-## Type Support For `.vue` Imports in TS
+请使用 npm run commit 进行提交
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+相关提交类型文档请参阅 .cz-config.js
+
+## 准备
+
+1、熟悉Vite、Vue语法
+
+2、熟悉TypeScript基本语法
+
+3、ES6+
+
+4、Vant
+
+## 项目运行
+
+```
+版本匹配：
+node：14.18.0 
+```
+
+```
+npm install
+```
+
+```
+npm run dev
+```
+
+# 项目布局
+
+```shell
+├── api  // api
+│   ├── baseUrlConfig.ts // api基路径配置
+│   ├── home.ts // 封装的api文件
+├── assets  // 静态资源存储
+│   ├── images // 图片
+│   ├── scss   // scss文件
+├── axios  // axios
+│   ├── axios.ts // 基础配置
+│   ├── customInterceptors.ts // 响应拦截封装
+│   ├── errCode.ts // 错误信息
+│   ├── type.ts // 类型
+├── common // 公共组件
+├── components // 页面组件
+├── config // 本地配置
+├── hook // hook
+│   ├── useMeta.ts // TDK写入hook
+├── plugins // 第三方配置
+│   ├── vant-configProvider-config.ts // vant主题
+│   ├── vant-variables.scss // 全局主题色
+├── router // 路由
+│   ├── index.ts // 路由配置
+│   ├── intercept.ts // 路由拦截器
+├── store // pinia
+│   ├── index.ts // 入口
+├── types // 项目类型
+│   ├── api.d.ts // 接口类型
+│   ├── global.d.ts // 全局类型
+├── utils // 工具函数
+│   ├── tools.ts // 自定义
+│   ├── utils.ts // 自定义
+├── view // 页面
+└──
+```

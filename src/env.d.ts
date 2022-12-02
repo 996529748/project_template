@@ -7,6 +7,7 @@ declare module '*.vue' {
   export default component
 }
 
+//jsonp拓展
 declare interface Window {
   [key:string]:unknown
 }

@@ -1,4 +1,3 @@
-
-const domain:String = "https://webapi.foxitcloud.cn";
+const domain = "https://www.baidu.com/";
 
 export { domain };

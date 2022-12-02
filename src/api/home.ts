@@ -1,11 +1,12 @@
-
-import request from '../axios/axios'
+import request from "../axios/axios";
 import { domain } from "./baseUrlConfig";
+
 // 帮助中心热门标签
-export function getHotTag(config:any):any {
-  return request.customRequest({
-    url: `${domain}/v1/friendly/link/list`,
+export function getHotTag(config: GeneralParametersConfig) {
+  return request.httpRequest<HotTagListType>({
+    url: `${domain}/v1/xxx/xxx/`,
     method: "GET",
-    ...config
+    // headers: { "X-token": "22222" },
+    ...config,
   });
 }

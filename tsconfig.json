@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "allowSyntheticDefaultImports": true,// 容许从没有设置默认导出的模块中默认导入。这并不影响代码的输入，仅为了类型查看。
+    "target": "esnext",// 指定ECMAScript指标版本 
     "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
+    "module": "esnext",// 指定生成哪个模块零碎代码
+    "moduleResolution": "node",// 决定如何解决模块。
+    "strict": true,// 启用所有严格类型查看选项。
     "jsx": "preserve",
-    "sourceMap": true,
+    "sourceMap": true,// 生成相应的 .map文件。
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true, //添加之后，可以推断类型，项目编译不再报错顺利打包
-    "baseUrl": "./",
+    "baseUrl": "./",// 解析非绝对模块名的基准目录
     "paths": {
       // 用于设置模块名到基于baseUrl的路径映射
       "@/*": ["src/*"],
