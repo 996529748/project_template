@@ -24,7 +24,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     // "prettier/prettier": "error",
-    "prettier/prettier": ["error", {}, {
+    "prettier/prettier": ["error", {"endOfLine": "auto" }, {
       "usePrettierrc": false
     }],
     // allow async-await
