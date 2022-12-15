@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./*"],
+      "src/*": ["./*"],
+      "api": ["./api/*"],
+      "assets": ["./assets/*"],
+      "utils": ["./utils/*"],
+      "mixins": ["./mixins/*"],
+      "store": ["./store/*"],
+      "image": ["./assets/image/*"],
+      "style": ["./assets/style/*"],
+      "config": ["./config/*"],
+      "layouts": ["./layouts/*"],
+      "plugins": ["./plugins/*"],
+      "components/*": ["./components/*"],
+      "common/*": ["./common/*"],
+      "pages/*": ["./pages/*"],
+    }
+  },
+  "exclude": ["node_modules", ".nuxt", "dist"]
+}

@@ -1,32 +1,83 @@
 {
-  "name": "scaffolding_liu_cli",
-  "version": "1.0.6",
-  "description": "自定义脚手架",
-  "keywords": [
-    "脚手架",
-    "cli"
-  ],
-  "author": "Mr_liu",
-  "main": "./bin/cli.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "bin": {
-    "liu-cli": "./bin/cli.js"
-  },
+  "name": "Nuxt",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nuxt --port 5050",
+    "build": "cross-env buildDir=.nuxt-dist nuxt build && npm run backDist && pm2 start",
+    "build:start": "nuxt build && pm2 start",
+    "build:test": "nuxt build && nuxt start",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint:prettier": "prettier --check .",
+    "lint": "npm run lint:js && npm run lint:prettier",
+    "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix",
+    "new:comp": "node ./newScripts/generateComponent",
+    "new:comm": "node ./newScripts/generateCommon",
+    "new:pages": "node ./newScripts/generatePages",
+    "commit": "git-cz",
+    "backup": "node ./scripts/backResource.js",
+    "backDist": "node ./scripts/backDist.js",
+    "snapshot:dev": "nodemon ./servers/snapshot.js",
+    "snapshot:prod": "pm2 start ./servers/snapshot.js --name snapshot"
   },
-  "license": "ISC",
-  "private": false,
   "dependencies": {
-    "fs-extra": "^10.1.0",
-    "chalk": "^2.4.2",
-    "commander": "^9.4.1",
-    "consolidate": "^0.16.0",
-    "download-git-repo": "^3.0.2",
-    "inquirer": "^8.2.0",
-    "metalsmith": "^2.5.1",
-    "ora": "^5.4.1"
-  }
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/html-minifier": "^0.1.2",
+    "@nuxtjs/pwa": "^3.3.5",
+    "ansi-regex": "^6.0.1",
+    "babel-polyfill": "^6.26.0",
+    "cheerio": "^1.0.0-rc.10",
+    "core-js": "^2.6.12",
+    "element-ui": "^2.15.12",
+    "express": "^4.18.2",
+    "js-beautify": "^1.14.0",
+    "lru-cache": "^6.0.0",
+    "md5": "^2.3.0",
+    "nuxt": "^2.15.8",
+    "nuxt-ssr-cache": "^1.5.2",
+    "sass-resources-loader": "^2.2.4",
+    "strip-ansi": "^7.0.1",
+    "vue": "^2.6.14",
+    "vue-server-renderer": "^2.6.14",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@nuxt/babel-preset-app": "^2.15.8",
+    "@nuxt/postcss8": "^1.1.3",
+    "@nuxtjs/eslint-config": "^8.0.0",
+    "@nuxtjs/eslint-module": "^3.1.0",
+    "babel-plugin-component": "^1.1.1",
+    "autoprefixer": "^10.4.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^6.3.0",
+    "compression-webpack-plugin": "^5.0.0",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-nuxt": "^3.2.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "node-sass": "~4.14.1",
+    "prettier": "^2.6.2",
+    "sass": "^1.49.0",
+    "sass-loader": "~8.0.2",
+    "vue-eslint-parser": "^8.3.0",
+    "webpack": "^4.46.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "nuxt": {
+      "host": "0.0.0.0"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
