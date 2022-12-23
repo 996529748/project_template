@@ -9,7 +9,7 @@ import useMeta from "./hook/useMeta/useMeta";
 
 useMeta();
 </script>
-<style>
+<style lang="scss">
 @import "./assets/scss/common.scss";
 #app {
   font-family: "微软雅黑";

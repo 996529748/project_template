@@ -2,85 +2,56 @@ import { defineConfig } from "vite"; //defineConfig 工具函数，这样不用 
 import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite"; //自动导入组件
 import ViteComponents from "unplugin-vue-components/vite"; //自动导入组件
-import { VantResolver } from "unplugin-vue-components/resolvers";
-import importToCDN from "vite-plugin-cdn-import";
-// import webp from 'vite-plugin-webp';
-import path from 'path';
+import { createHtmlPlugin } from "vite-plugin-html";
+import externalGlobals from "rollup-plugin-external-globals";
+// 查看打包大小插件
+import { visualizer } from 'rollup-plugin-visualizer';
 // viteRollup插件文档：https://vite-rollup-plugins.patak.dev/
-// import ImageCompression from "@rollup/plugin-image";//图片转base64
-import styleImport, { VantResolve } from "vite-plugin-style-import";
+
+const isProd = process.env.isProd === "prod";
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: process.cwd(), // 项目根目录（index.html 文件所在的位置）,
-  // base: './', // 采用hash路由，并且不放在nginx根目录形式需要配置
+  // root: process.cwd(), // 项目根目录（index.html 文件所在的位置）,
+  base: '/', // 基路径配置
   // mode: 'development', // 模式
   plugins: [
     vue(),
+    visualizer({ open: true }),
     AutoImport({
       // 这里除了引入 vue 以外还可以引入pinia、vue-router、vueuse等，
       // 甚至你还可以使用自定义的配置规则，见 https://github.com/antfu/unplugin-auto-import#configuration
       imports: ["vue", "vue-router"],
-      // 第三方组件库的解析器
-      resolvers: [VantResolver()],
     }),
     ViteComponents({
       // dirs 指定组件所在位置，默认为 src/components
       // 可以让我们使用自己定义组件的时候免去 import 的麻烦
       dirs: ["src/components/"],
       // 配置需要将哪些后缀类型的文件进行自动按需引入
-      extensions: ["vue"],
+      extensions: ["vue","ts"],
       //解析的 UI 组件库，
-      resolvers: [VantResolver({ importStyle: true })],
-    }),
-    //样式引入
-    styleImport({
-      resolves: [VantResolve()],
+      // resolvers: [VantResolver({ importStyle: true })],
     }),
     //CDN
-    importToCDN({
-      modules: [
-        {
-          name: "vue",
-          var: "Vue",
-          path: "https://cdn.bootcdn.net/ajax/libs/vue/3.2.45/vue.cjs.min.js",
+    createHtmlPlugin({
+      inject: {
+        data: {
+          injectScripts: isProd
+            ? {
+                css: ["https://cdn.bootcdn.net/ajax/libs/vant/3.6.6/index.min.css"],
+                js: [
+                  "https://cdn.bootcdn.net/ajax/libs/vue/3.2.45/vue.cjs.min.js",
+                  "https://cdn.bootcdn.net/ajax/libs/vue-router/4.1.6/vue-router.cjs.min.js",
+                  "https://cdn.bootcdn.net/ajax/libs/vant/3.6.6/vant.min.js",
+                  "https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js",
+                  "https://cdn.bootcdn.net/ajax/libs/vue-demi/0.13.11/index.iife.js",
+                  "https://cdn.bootcdn.net/ajax/libs/pinia/2.0.26/pinia.iife.min.js",
+                ],
+              }
+            : {},
         },
-
-        {
-          name: "vue-router",
-          var: "VueRouter",
-          path: "https://cdn.bootcdn.net/ajax/libs/vue-router/4.1.6/vue-router.cjs.min.js",
-        },
-
-        {
-          name: "pinia",
-          var: "Pinia",
-          path: "https://cdn.bootcdn.net/ajax/libs/pinia/2.0.26/pinia.iife.min.js",
-        },
-
-        {
-          name: "vant",
-          var: "vant",
-          css: "https://cdn.bootcdn.net/ajax/libs/vant/3.6.6/index.min.css",
-          path: "https://cdn.bootcdn.net/ajax/libs/vant/3.6.6/vant.min.js",
-        },
-
-        {
-          name: "axios",
-          var: "Axios",
-          path: "https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js",
-        },
-      ],
+      },
     }),
-    //图片转webp
-    // webp({
-    //   include: path.join(__dirname, 'src/pages/index'),
-    //   declude: path.join(__dirname, 'src/pages/index/ignore.vue'),
-    //   imageType: ['.png', '.jpg']
-    // })
-    // {
-    //   ...ImageCompression(),
-    //   enforce: 'pre',
-    // }
   ], //注册插件 vue()  多个用，隔开
 
   server: {
@@ -132,6 +103,11 @@ export default defineConfig({
     },
   },
 
+  json: {
+    namedExports: true, // 是否支持从.json文件中进行按名导入
+    stringify: false, //  开启此项，导入的 JSON 会被转换为 export default JSON.parse("...") 会禁用按名导入
+  },
+
   //构建选项
   build: {
     //浏览器兼容性  "esnext"|"modules" 设置最终构建的浏览器兼容目标
@@ -139,7 +115,7 @@ export default defineConfig({
     // 是否自动注入 module preload 的 polyfill
     polyfillModulePreload: true, 
     //指定输出路径
-    outDir: "dist",
+    outDir: "./dist",
     //生成静态资源的存放路径
     assetsDir: "./static",
     //小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项
@@ -152,6 +128,7 @@ export default defineConfig({
     sourcemap: false,
     //当设置为 true，构建后将会生成 manifest.json 文件
     manifest: false,
+
     // 设置为 false 可以禁用最小化混淆，
     // 或是用来指定使用哪种混淆器
     // boolean | 'terser' | 'esbuild'
@@ -161,7 +138,7 @@ export default defineConfig({
     //默认情况下，若 outDir 在 root 目录下，则 Vite 会在构建时清空该目录。
     emptyOutDir: true,
     //启用/禁用 gzip 压缩大小报告
-    reportCompressedSize: false,
+    reportCompressedSize: true,
     //chunk 大小警告的限制
     chunkSizeWarningLimit: 2000,
     //传递给 Terser 的更多 minify 选项。
@@ -181,7 +158,18 @@ export default defineConfig({
     // 将文件分开打包
     rollupOptions: {
       // 忽略打包
-      external: ["vue", "pinia", "vue-router", "axios", /vant/],
+      external: isProd ? ["vue", "pinia", "vue-router", "vant", "vue-demi", "axios"] : [],
+      plugins: [
+      // cdn配置全局变量 
+        externalGlobals({
+          vue: "Vue",
+          pinia:"Pinia",
+          "vue-router":"VueRouter",
+          "vue-demi": "VueDemi",
+          "axios":"axios",
+          "vant":"vant"
+        }),
+      ],
       output: {
         manualChunks(id) {
           // node_modules 下文件分包

@@ -3,8 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "dev": "cross-env isProd=prod vite",
+    "tsc": "cross-env isProd=prod vue-tsc --noEmit",
+    "base:build": "cross-env isProd=prod vite build",
+    "build": "npm run tsc && npm run base:build",
     "preview": "vite preview",
     "commit": "git-cz",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix"
@@ -24,6 +26,7 @@
     "@typescript-eslint/parser": "^5.43.0",
     "@vitejs/plugin-vue": "^2.2.0",
     "babel-eslint": "^10.0.3",
+    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^6.3.0",
     "eslint": "^7.32.0",
@@ -33,6 +36,8 @@
     "node-sass": "^7.0.1",
     "postcss-pxtorem": "^6.0.0",
     "prettier": "^2.7.1",
+    "rollup-plugin-external-globals": "^0.7.1",
+    "rollup-plugin-visualizer": "^5.8.3",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "terser": "^5.15.0",
@@ -40,8 +45,7 @@
     "unplugin-auto-import": "^0.6.1",
     "unplugin-vue-components": "^0.17.21",
     "vite": "^3.1.0",
-    "vite-plugin-cdn-import": "^0.3.5",
-    "vite-plugin-style-import": "^1.4.1",
+    "vite-plugin-html": "^3.2.0",
     "vue-tsc": "^1.0.9"
   },
   "engines": {

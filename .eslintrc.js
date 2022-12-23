@@ -10,7 +10,10 @@ module.exports = {
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
+    ecmaVersion: 6,// 支持es6语法（但不支持新的 ES6 全局变量或类型，如Set）
     parser: '@typescript-eslint/parser',
+    project: ['./tsconfig.json'],
+    extraFileExtensions:['.vue']
   },
   extends: [
     'plugin:vue/vue3-recommended',
@@ -20,7 +23,8 @@ module.exports = {
   // required to lint *.vue files
   plugins: [
     'vue',
-    'prettier'
+    'prettier',
+    '@typescript-eslint'
   ],
   rules: {
     // allow async-await
@@ -122,7 +126,7 @@ module.exports = {
     //禁止对象字面量中的重复键
     "no-dupe-keys": 2,
     //禁止重复的模块导入
-    "no-duplicate-imports": 2,
+    // "no-duplicate-imports": 2,
     //禁止 `case` 语句的失败
     "no-fallthrough": 2,
     //禁止function嵌套块中的变量或声明
@@ -153,8 +157,6 @@ module.exports = {
     "no-array-constructor": 2,
     //禁止 `Object` 构造函数
     "no-new-object": 2,
-    // allow debugger during development
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     semi: ["error", "always"],
     //警告赋值为any
     "@typescript-eslint/no-explicit-any": ["warn"],
@@ -173,9 +175,8 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     //自定义指令后不允许评论或要求描述
     '@typescript-eslint/ban-ts-comment': 'off',
-    // '@typescript-eslint/ban-types': 'off',
     //允许非空断言
-    '@typescript-eslint/no-non-null-assertion': 'off',
+    // '@typescript-eslint/no-non-null-assertion': 'off',
     //要求在导出函数和类的公共类方法上显式返回和参数类型
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     //禁止未使用变量--未使用的变量只允许字母
@@ -186,7 +187,81 @@ module.exports = {
         varsIgnorePattern: '^params',
       },
     ],
+    //要求函数重载签名是连续的
+    '@typescript-eslint/adjacent-overload-signatures':'error',
+    //要求一致地使用 或 for 数组T[]Array<T>.模式
+    '@typescript-eslint/array-type':'warn',
+    //禁止某些类型
+    '@typescript-eslint/ban-types': 'error',
+    //强制在构造函数调用的类型注释或构造函数名称上指定泛型类型参数
+    '@typescript-eslint/consistent-generic-constructors': 'warn',
+    //要求使用类型Record
+    '@typescript-eslint/consistent-indexed-object-style': 'warn',
+    //强制使用类型断言的一致性
+    '@typescript-eslint/consistent-type-assertions': 'error',
+    //强制接口类型定义以一致地使用interfacetype
+    '@typescript-eslint/consistent-type-definitions':[
+      'error',
+      'interface'
+    ],
+    //强制一致使用类型导出
+    // "@typescript-eslint/consistent-type-exports": "warn",
+    //强制一致使用类型导入
+    '@typescript-eslint/consistent-type-imports': 'warn',
+    //要求函数和类方法的显式返回类型
+    '@typescript-eslint/explicit-function-return-type':'error',
+    //要求在导出函数和类的公共类方法上显式返回和参数类型
+    "@typescript-eslint/explicit-module-boundary-types":[
+      "error",
+      {
+        "allowedNames": ["ignoredFunctionName", "ignoredMethodName"]
+      }
+    ],
+    //强制使用特定方法签名语法
+    "@typescript-eslint/method-signature-style": "error",
+    //无重复枚举值
+    "@typescript-eslint/no-duplicate-enum-values": "error",
+    //没有额外的非空断言
+    "@typescript-eslint/no-extra-non-null-assertion": "error",
+    //不允许使用for in循环遍历数组
+    "@typescript-eslint/no-for-in-array": "error",
+    //禁止在 catch 子句中使用隐式类型any
+    "@typescript-eslint/no-implicit-any-catch": "error",
+    //不允许对初始化为数字、字符串或布尔值的变量或参数进行显式类型声明
+    "@typescript-eslint/no-inferrable-types": "error",
+    //禁止泛型或返回类型之外的类型void
+    "@typescript-eslint/no-invalid-void-type": "error",
+    //禁止命名空间
+    "@typescript-eslint/no-namespace": "error",
+    //不允许在空合并运算符的左操作数中使用非空断言。
+    "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
+    //不允许在可选链表达式后使用非空断言。
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
+    //禁止使用后缀运算符进行非空断言
+    "@typescript-eslint/no-non-null-assertion": "error",
+    //禁止调用require()
+    "@typescript-eslint/no-require-imports": "error",
+    //禁止this别名
+    "@typescript-eslint/no-this-alias": "error",
+    //不允许对布尔文本进行不必要的相等比较
+    "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
+    //禁止等于默认值的类型参数
+    "@typescript-eslint/no-unnecessary-type-arguments": "error",
+    //禁止不更改表达式类型的类型断言
+    "@typescript-eslint/no-unnecessary-type-assertion": "error",
+    //不允许将类型值分配给变量和属性any
+    "@typescript-eslint/no-unsafe-assignment": "error",
+    //禁止从函数返回带有类型的值any
+    "@typescript-eslint/no-unsafe-return": "error",
+    //禁止语句（导入语句除外）require
+    "@typescript-eslint/no-var-requires": "error",
+    //强制使用过度文本类型as const
+    "@typescript-eslint/prefer-as-const": "error",
+    //要求加法的两个操作数是相同的类型
+    "@typescript-eslint/restrict-plus-operands": "error",
+    //强制模板文本表达式为类型string
+    "@typescript-eslint/restrict-template-expressions": "error",
     //多词组件名称-暂时关闭，希望只适用于组件部分
-    'vue/multi-word-component-names':'off',
+    'vue/multi-word-component-names':'off'
   },
 };
