@@ -28,7 +28,7 @@ glob.sync('./src/pages/**/main.js').forEach(entry => {
   }
 })
 module.exports = {
-  publicPath: IS_PROD_RELEASE?`https://cdn.foxitreader.cn/${package.name}/${package.version}`:"/",
+  // publicPath: IS_PROD_RELEASE?`https://xxxxx/${package.name}/${package.version}`:"/",
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: false,
@@ -56,17 +56,17 @@ module.exports = {
     port: "8080",
     https: false,
     hotOnly: false,
-    proxy: {
-      "/api": {
-        target:
-          "https://www.easy-mock.com/mock/5bc75b55dc36971c160cad1b/sheets",
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: {
-          "^/api": "/"
-        }
-      }
-    }
+    // proxy: {
+    //   "/api": {
+    //     target:
+    //       "https://www.easy-mock.com/mock/5bc75b55dc36971c160cad1b/sheets",
+    //     secure: false,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       "^/api": "/"
+    //     }
+    //   }
+    // }
   },
   configureWebpack: config => {
     const plugins = [];
@@ -115,20 +115,20 @@ module.exports = {
     config.plugins = [...config.plugins, ...plugins];
   },
   chainWebpack: config => {
-    const cdn = {
-      css: [
-        "https://cdn.foxitreader.cn/vant/2.12.15/vant.min.css",
-        'https://cdn.foxitreader.cn/foxit_ui_components/0.1.2/theme-chalk/index.css'
-      ],
-      js: [
-        "https://cdn.foxitreader.cn/vue/2.5.2/vue.min.js",
-        "https://cdn.foxitreader.cn/vuex/3.6.0/vuex.min.js",
-        "https://cdn.foxitreader.cn/vue-router/3.0.1/vue-router.min.js",
-        'https://cdn.foxitreader.cn/axios/0.18.0/axios.min.js',
-        'https://cdn.foxitreader.cn/vant/2.12.15/vant.min.js',
-        'https://cdn.foxitreader.cn/foxit_ui_components/0.1.2/index.js'
-      ]
-    };
+    // const cdn = {
+    //   css: [
+    //     "https://xxxx/vant.min.css",
+    //     'https://xxxx/index.css'
+    //   ],
+    //   js: [
+    //     "https://xxxxx/vue/2.5.2/vue.min.js",
+    //     "https://xxxxx/vuex/3.6.0/vuex.min.js",
+    //     "https://xxxxx/vue-router/3.0.1/vue-router.min.js",
+    //     'https://xxxxx/axios/0.18.0/axios.min.js',
+    //     'https://xxxxx/vant/2.12.15/vant.min.js',
+    //     'https://xxxxx/foxit_ui_components/0.1.2/index.js'
+    //   ]
+    // };
     if(!IS_DEV_MULTI_PAGE && !IS_PROD_MULTI_PAGE){
       config.plugin("html").tap(args => {
         // html中添加cdn
@@ -223,7 +223,7 @@ module.exports = {
         .loader('url-loader')
         .tap(options => Object.assign(options, {
           // publicPath: (url, resourcePath, context) => {
-          //   return `https://cdn.foxitreader.cn/webCDN/test/img/${url.split(process.platform === "win32" ? "\\" : "/").pop()}`;//"test/img"为图片上传cdn的路径
+          //   return `https://xxxxx/webCDN/test/img/${url.split(process.platform === "win32" ? "\\" : "/").pop()}`;//"test/img"为图片上传cdn的路径
           // },
           limit:10000,
           name: "[name].[ext]",
