@@ -23,7 +23,7 @@ const formatHtml = (data) => {
 export default function (req, res, next) {
   const pathname = req.url;
   // 设置特定的路由用以删除缓存（不需要的话可以删除）
-  if (pathname === "/foxit/clearCache") {
+  if (pathname === "/xxx/clearCache") {
     cachePage.reset();
     cacheAPI.reset();
     res.end("缓存清除成功", "utf-8");

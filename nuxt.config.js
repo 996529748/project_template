@@ -180,7 +180,7 @@ export default {
         // [
         //   "component",
         //   {
-        //     libraryName: "@foxit/foxit_ui_components",
+        //     libraryName: "xxx",
         //     styleLibraryName: "theme-chalk",
         //   },
         // ],
