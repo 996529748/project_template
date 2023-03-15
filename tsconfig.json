@@ -1,0 +1,59 @@
+{
+    "compilerOptions": {
+        // 目标语言的版本
+        "target": "esnext",
+        // 生成代码的模板标准
+        "module": "commonjs",
+        // 开启所有严格的类型检查
+        "strict": true,
+        // 设置为true时，将不会包含默认的库，如（lib.d.ts）,此时有可能导致找不到Array，String等对象
+        "noLib": false,
+        // 模块解析策略，ts默认用node的解析策略，即相对的方式导入
+        "moduleResolution": "node",
+        // 设置为true时，将强制区分大小写。默认为false。
+        "forceConsistentCasingInFileNames": true,
+        // 设置为true时，则允许从没有默认导出的模块中默认导入(也就是不做检查)。
+        "allowSyntheticDefaultImports": true,
+        // 不允许函数参数双向协变
+        "strictFunctionTypes": false,
+        "jsx": "preserve",
+        // 用于设置解析非相对模块名称的基本目录，相对模块不会受到baseUrl的影响
+        "baseUrl": ".",
+        // 允许编译器编译JS，JSX文件
+        "allowJs": false,
+        // 生成目标文件的sourceMap文件
+        "sourceMap": true,
+        // 允许在 TypeScript 模块中导入 JSON 文件
+        "resolveJsonModule": true,
+        // 允许export=导出，由import from 导入
+        "esModuleInterop": true,
+        // 检查只声明、未使用的局部变量(只提示不报错)
+        "noUnusedLocals": true,
+        // 检查未使用的函数参数(只提示不报错)
+        "noUnusedParameters": true,
+        // 设置为true，则支持ES7的装饰器特性
+        "experimentalDecorators": true,
+        // TS需要引用的库，即声明文件，es5 默认引用dom、es5、scripthost,如需要使用es的高级版本特性，通常都需要配置，如es8的数组新特性需要引入"ES2019.Array",
+        "lib": ["esnext", "dom"],
+        // 不允许隐式的any类型
+        "noImplicitAny": true,
+        // 排除node_modules包的检测
+        "skipLibCheck": true,
+        // 路径映射，相对于baseUrl
+        "paths": {
+            // 用于设置模块名到基于baseUrl的路径映射
+            "@/*": ["app/*"]
+        },
+        // 加载的声明文件包
+        "types": [],
+        // 删除注释 
+        "removeComments": true,
+    },
+    // 表示编译需要编译的文件或目录
+    "include": ["app/**/*.ts", "app/**/*.d.ts", "app/*.ts"],
+    // 表示编译器需要排除的文件或文件夹
+    "exclude": ["node_modules"],
+    "ts-node": {
+        "files": true
+      }
+}
