@@ -4,11 +4,13 @@ import AutoImport from "unplugin-auto-import/vite"; //自动导入组件
 import ViteComponents from "unplugin-vue-components/vite"; //自动导入组件
 import { createHtmlPlugin } from "vite-plugin-html";
 import externalGlobals from "rollup-plugin-external-globals";
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';//svg图片
+import path from 'path';
 // 查看打包大小插件
 import { visualizer } from 'rollup-plugin-visualizer';
 // viteRollup插件文档：https://vite-rollup-plugins.patak.dev/
 
-const isProd = process.env.isProd === "prod";
+const isProd = process.env.isProd !== "prod";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -52,6 +54,13 @@ export default defineConfig({
         },
       },
     }),
+     //SVG
+     createSvgIconsPlugin({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [path.resolve(process.cwd(), './src/assets/svg')],
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]',
+   }),
   ], //注册插件 vue()  多个用，隔开
 
   server: {

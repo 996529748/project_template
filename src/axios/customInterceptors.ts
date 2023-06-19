@@ -1,6 +1,5 @@
-import type { AxiosInstance, AxiosError } from "axios";
-import axios from "axios";
-import type customRequestConfig from "./type";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import customRequestConfig from "./type";
 import { getErrMessage } from "./errCode";
 import { Toast } from "vant";
 
@@ -8,10 +7,10 @@ type toastInstance = ReturnType<typeof Toast.loading>; //取 Toast.loading 值�
 
 const DEFAULT_LOADING = true; //默认loading显示 or 隐藏的变量
 
-class customInterceptors {
-  instance: AxiosInstance;
-  showLoading: boolean;
-  toastInstance: toastInstance | undefined;
+class CustomInterceptors {
+  private instance: AxiosInstance;
+  private showLoading: boolean;
+  private toastInstance?: toastInstance;
 
   constructor(config: customRequestConfig) {
     this.instance = axios.create(config); //根据传入配置手动创建实例
@@ -19,10 +18,11 @@ class customInterceptors {
     this.init();
   }
 
-  init(): void {
+  private init() {
     this.instance.interceptors.request.use(
       (res) => {
         if (this.showLoading) {
+          // 显示 loading
           //创建toast实例
           this.toastInstance = Toast.loading({
             duration: 0,
@@ -34,52 +34,59 @@ class customInterceptors {
       },
 
       (err) => {
+        // 请求错误处理
         this.toastInstance?.clear();
-        console.log(err);
+        console.error(err);
+        return Promise.reject(err);
       }
     );
 
     this.instance.interceptors.response.use(
       (res) => {
-        setTimeout(() => {
-          this.toastInstance?.clear();
-        }, 1000);
-        //TODO
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return res.data;
+        // 清除 loading
+        this.toastInstance?.clear();
+        // 判断响应的 code 值
+        const { data } = res;
+        if (data && data.ret === 0) {
+          return data;
+        }
+        const errorMessage = data && data.message ? data.message : "请求失败";
+        return Promise.reject(new Error(errorMessage));
       },
 
       (error: AxiosError) => {
         this.toastInstance?.clear();
         const err = getErrMessage(error);
-        console.log(err);
+        console.error(err);
+        return Promise.reject(error);
       }
     );
   }
 
   //自定义请求
-  httpRequest<T>(config: customRequestConfig): Promise<T> {
+  public httpRequest<T>(config: customRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
-      // 定制该请求是否加loading。当为传入该参数时，默认为true
-      if (config.showLoading && config.showLoading) {
+      if (config.showLoading && config.showLoading === true) {
         this.showLoading = true;
       }
-      this.instance.request<unknown, T>(config).then(
-        (res) => resolve(res),
-
-        (err) => {
+      this.instance
+        .request<unknown, AxiosResponse<T>>(config)
+        .then((response) => {
           this.showLoading = DEFAULT_LOADING;
-          return reject(err);
-        }
-      );
+          resolve(response.data);
+        })
+        .catch((error) => {
+          this.showLoading = DEFAULT_LOADING;
+          reject(error);
+        });
     });
   }
 
   //jsonp自行扩展封装
-  jsonpRequest<T>(config: customRequestConfig): Promise<T> {
+  public jsonpRequest<T>(config: customRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       // 定制该请求是否加loading。当为传入该参数时，默认为true
-      if (config.showLoading && config.showLoading) {
+      if (config.showLoading && config.showLoading === true) {
         this.showLoading = true;
       }
 
@@ -99,7 +106,7 @@ class customInterceptors {
       jsonp.src = baseUrl as string;
       document.getElementsByTagName("head")[0].appendChild(jsonp);
       // 给window添加属性，用于获取jsonp结果
-      window[callbackName] = (res: T): void => {
+      window[callbackName] = (res: T) => {
         if (res) {
           resolve(res);
         } else {
@@ -116,4 +123,4 @@ class customInterceptors {
   }
 }
 
-export default customInterceptors;
+export default CustomInterceptors;

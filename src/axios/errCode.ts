@@ -1,8 +1,8 @@
-import type { AxiosError } from "axios";
+import { AxiosError } from "axios";
 
 //根据项目可自行配置
 export function getErrMessage(err: AxiosError): string {
-  switch (err.response?.status) {
+  switch (err!.response!.status) {
     case 400:
       err.message = "请求错误";
       break;
@@ -13,7 +13,7 @@ export function getErrMessage(err: AxiosError): string {
       err.message = "拒绝访问";
       break;
     case 404:
-      err.message = `请求地址出错: ${err.response.config.url as string}`;
+      err.message = `请求地址出错: ${err!.response!.config.url}`;
       break;
     case 408:
       err.message = "请求超时";
