@@ -8,27 +8,24 @@ module.exports = {
     node: true,
     es6: true,
   },
-  parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: '@typescript-eslint/parser',
+    parser: "@typescript-eslint/parser",
   },
   extends: [
-    'plugin:vue/vue3-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
   ],
   // required to lint *.vue files
-  plugins: [
-    'vue',
-    'prettier'
-  ],
+  plugins: ["prettier"],
   rules: {
-    // 换行符配置
-    'prettier/prettier':[
-      'error',
+    "prettier/prettier": [
+      "error",
       {
-        endOfLine:'auto'
-      }
+        endOfLine: "auto",
+      },
+      {
+        usePrettierrc: false,
+      },
     ],
     // allow async-await
     "generator-star-spacing": "off",
@@ -82,8 +79,6 @@ module.exports = {
     "default-case": 2,
     //强制数组方法的回调函数中有 return 语句
     "array-callback-return": 1,
-    //换行符效验
-    'linebreak-style': 'off',
     //要求使用 === 和 !==
     eqeqeq: 2,
     //要求调用 isNaN()检查 NaN
@@ -143,11 +138,11 @@ module.exports = {
     //在构造函数中调用 `super()` 之前禁止 `this`/`super`
     "no-this-before-super": 2,
     //禁止未使用的变量--未使用的变量只允许params
-    'no-unused-vars': [
-      'error',
+    "no-unused-vars": [
+      "error",
       {
-        argsIgnorePattern: '^params',
-        varsIgnorePattern: '^params',
+        argsIgnorePattern: "^params",
+        varsIgnorePattern: "^params",
       },
     ],
     //在定义之前禁止使用变量
@@ -157,47 +152,43 @@ module.exports = {
     //箭头函数体周围需要大括号
     "arrow-body-style": 1,
     //强制执行驼峰命名约定
-    "camelcase": 2,
+    camelcase: 2,
     //禁止Array构造函数
     "no-array-constructor": 2,
     //禁止 `Object` 构造函数
     "no-new-object": 2,
     // allow debugger during development
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-    //忽略使用v-html将导致xss攻击警告 
-    "vue/no-v-html":"off",
     semi: ["error", "always"],
     //警告赋值为any
     "@typescript-eslint/no-explicit-any": ["warn"],
     //禁止不必要的类型约束
-    "@typescript-eslint/no-unnecessary-type-constraint": "error",
+    "@typescript-eslint/no-unnecessary-type-constraint": "off",
     //显示函数返回类型
-    '@typescript-eslint/explicit-function-return-type': 'off',
+    "@typescript-eslint/explicit-function-return-type": "off",
     //禁止require在import语句中除外的语句  var foo = require("foo")禁止使用
-    '@typescript-eslint/no-var-requires': 'error',
+    "@typescript-eslint/no-var-requires": "error",
     //禁止空函数
-    '@typescript-eslint/no-empty-function': 'error',
+    "@typescript-eslint/no-empty-function": "error",
     //驼峰式自定义事件名称
-    // 'vue/custom-event-name-casing': ["error", "camelCase" | "kebab-case"],  
+    // 'vue/custom-event-name-casing': ["error", "camelCase" | "kebab-case"],
     // 'no-use-before-define': 'off',
     //禁止在定义变量之前使用变量
-    '@typescript-eslint/no-use-before-define': 'off',
+    "@typescript-eslint/no-use-before-define": "off",
     //自定义指令后不允许评论或要求描述
-    '@typescript-eslint/ban-ts-comment': 'off',
+    "@typescript-eslint/ban-ts-comment": "off",
     // '@typescript-eslint/ban-types': 'off',
     //允许非空断言
-    '@typescript-eslint/no-non-null-assertion': 'off',
+    "@typescript-eslint/no-non-null-assertion": "off",
     //要求在导出函数和类的公共类方法上显式返回和参数类型
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     //禁止未使用变量--未使用的变量只允许字母
-    '@typescript-eslint/no-unused-vars': [
-      'error',
+    "@typescript-eslint/no-unused-vars": [
+      "error",
       {
-        argsIgnorePattern: '^params',
-        varsIgnorePattern: '^params',
+        argsIgnorePattern: "^params",
+        varsIgnorePattern: "^params",
       },
     ],
-    //多词组件名称-暂时关闭，希望只适用于组件部分
-    'vue/multi-word-component-names':'off',
   },
 };
