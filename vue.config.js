@@ -126,7 +126,7 @@ module.exports = {
     //     "https://xxxxx/vue-router/3.0.1/vue-router.min.js",
     //     'https://xxxxx/axios/0.18.0/axios.min.js',
     //     'https://xxxxx/vant/2.12.15/vant.min.js',
-    //     'https://xxxxx/foxit_ui_components/0.1.2/index.js'
+    //     'https://xxxxx/element/0.1.2/index.js'
     //   ]
     // };
     if(!IS_DEV_MULTI_PAGE && !IS_PROD_MULTI_PAGE){
