@@ -9,7 +9,6 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "@foxit/sso_cookie": "^1.0.7",
     "amfe-flexible": "^2.2.1",
     "axios": "^0.26.1",
     "lib-flexible": "^0.3.2",
